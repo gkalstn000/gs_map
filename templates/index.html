@@ -28,5 +28,7 @@
 <!-- positions 변수를 JavaScript로 전달 -->
 <script>
     var positions = {{ positions | tojson | safe }};
+    console.log("Index.html 전체 좌표정보:", positions);
+    console.log("Index.html First position data:", positions[0]);
 </script>
 {% endblock %}

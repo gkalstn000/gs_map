@@ -34,7 +34,7 @@ def index():
                            table_html=table_html,
                            error_message=error_message,
                            kakao_map_key=kakao_map_key,
-                           positions=json.dumps(positions))
+                           positions=json.dumps(positions, ensure_ascii=False))  # ensure_ascii=False 추가
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=7885, debug=True)
