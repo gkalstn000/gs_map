@@ -24,4 +24,6 @@ th, td {
 #map {
     width: 100%;
     height: 400px;
+    margin-bottom: 50px; /* 페이지 하단과 지도 사이에 여백 추가 */
+
 }
