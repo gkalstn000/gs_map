@@ -1,0 +1,27 @@
+.table-container {
+    max-width: 100%;
+    max-height: 500px; /* 고정 높이 설정 */
+    overflow-x: auto;
+    overflow-y: auto; /* 세로 스크롤 활성화 */
+    margin-bottom: 20px;
+}
+table {
+    width: 100%;
+    margin: auto;
+    border-collapse: collapse;
+}
+th {
+    position: sticky;
+    top: 0; /* 상단에 고정 */
+    background-color: #fff; /* 헤더 배경색 */
+    z-index: 1000; /* 다른 행 위에 위치하도록 설정 */
+}
+th, td {
+    white-space: nowrap;
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+}
+#map {
+    width: 100%;
+    height: 400px;
+}
