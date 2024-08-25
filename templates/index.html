@@ -39,10 +39,26 @@
     <div class="container">
         <h1 class="my-4">엑셀 데이터 및 지도 보기</h1>
 
+        <!-- 파일 업로드 폼 -->
+        <form action="/" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="file">엑셀 파일 업로드:</label>
+                <input type="file" name="file" id="file" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">업로드</button>
+        </form>
+
+        <!-- 오류 메시지 출력 -->
+        {% if error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+        {% endif %}
+
         <!-- 엑셀 데이터를 출력하는 테이블 -->
+        {% if table_html %}
         <div class="table-container">
             {{ table_html|safe }}
         </div>
+        {% endif %}
 
         <!-- 카카오 지도가 표시될 영역 -->
         <div id="map"></div>
@@ -51,13 +67,53 @@
     <!-- 카카오 지도 API 스크립트 -->
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey={{ kakao_map_key }}"></script>
     <script>
-        var container = document.getElementById('map');
-        var options = {
-            center: new kakao.maps.LatLng(33.450701, 126.570667),
-            level: 3
-        };
+        // Flask에서 전달된 positions 데이터를 JavaScript 변수로 사용
+        var positions = {{ positions | safe }};
 
-        var map = new kakao.maps.Map(container, options);
+        if (positions.length > 0) {
+            var firstPosition = positions[0];  // 첫 번째 요소를 가져옴
+            var centerLatLng = new kakao.maps.LatLng(firstPosition['좌표정보(Y)'], firstPosition['좌표정보(X)']);
+            var mapContainer = document.getElementById('map'),
+                mapOption = {
+                    center: centerLatLng,  // 첫 번째 위치의 좌표로 지도 중심 설정
+                    level: 3
+            };
+
+            var map = new kakao.maps.Map(mapContainer, mapOption);
+
+            positions.forEach(function(position) {
+                var latlng = new kakao.maps.LatLng(position['좌표정보(Y)'], position['좌표정보(X)']);  // Y가 위도, X가 경도입니다.
+
+                var marker = new kakao.maps.Marker({
+                    map: map,
+                    position: latlng,
+                    title: position['사업장명'],
+                });
+
+                var infowindow = new kakao.maps.InfoWindow({
+                    content: '<div style="padding:5px;font-size:14px;">' + position['사업장명'] + '</div>' // 인포윈도우에 표시할 내용
+                });
+
+                // 마커에 마우스를 올렸을 때 인포윈도우를 표시하는 이벤트 리스너 등록
+                kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+                // 마커에서 마우스를 뗐을 때 인포윈도우를 닫는 이벤트 리스너 등록
+                kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+            });
+        }
+
+        // 인포윈도우를 표시하는 클로저를 만드는 함수입니다
+        function makeOverListener(map, marker, infowindow) {
+            return function() {
+                infowindow.open(map, marker);
+            };
+        }
+
+        // 인포윈도우를 닫는 클로저를 만드는 함수입니다
+        function makeOutListener(infowindow) {
+            return function() {
+                infowindow.close();
+            };
+        }
     </script>
 </body>
 </html>
