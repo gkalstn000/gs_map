@@ -27,3 +27,27 @@ th, td {
     margin-bottom: 50px; /* 페이지 하단과 지도 사이에 여백 추가 */
 
 }
+
+.dotOverlay.distanceInfo {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.3);
+    margin-top: 5px;
+    position: absolute;  /* 위치를 고정하기 위해 absolute 사용 */
+    right: 10px;           /* 위쪽으로부터의 거리 설정 */
+
+}
+
+.info {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.3);
+    margin-top: 5px;
+    position: absolute;  /* 위치를 고정하기 위해 absolute 사용 */
+    left: 10px;           /* 위쪽으로부터의 거리 설정 */
+
+}

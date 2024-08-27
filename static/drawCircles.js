@@ -207,44 +207,28 @@ function removeCircles() {
 }
 
 function getTimeHTML(distance) {
-    // 도보의 시속은 평균 4km/h 이고 도보의 분속은 67m/min입니다
     var walkkTime = distance / 67 | 0;
     var walkHour = '', walkMin = '';
 
-    // 계산한 도보 시간이 60분 보다 크면 시간으로 표시합니다
     if (walkkTime > 60) {
         walkHour = '<span class="number">' + Math.floor(walkkTime / 60) + '</span>시간 ';
     }
     walkMin = '<span class="number">' + walkkTime % 60 + '</span>분';
 
-    // 자전거의 평균 시속은 16km/h 이고 이것을 기준으로 자전거의 분속은 267m/min입니다
     var bycicleTime = distance / 227 | 0;
     var bycicleHour = '', bycicleMin = '';
 
-    // 계산한 자전거 시간이 60분 보다 크면 시간으로 표출합니다
     if (bycicleTime > 60) {
         bycicleHour = '<span class="number">' + Math.floor(bycicleTime / 60) + '</span>시간 ';
     }
     bycicleMin = '<span class="number">' + bycicleTime % 60 + '</span>분';
 
-    // 거리와 도보 시간, 자전거 시간을 가지고 HTML Content를 만들어 리턴합니다
-    var content = `
-        <ul class="info" style="background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+    return `
+        <ul class="info">
             <li>
                 <span class="label">반경</span>
                 <span class="number">${distance}</span>m
             </li>
-<!--            <li>-->
-<!--                <span class="label">도보</span>-->
-<!--                ${walkHour}${walkMin}-->
-<!--            </li>-->
-<!--            <li>-->
-<!--                <span class="label">자전거</span>-->
-<!--                ${bycicleHour}${bycicleMin}-->
-<!--            </li>-->
-        </ul>
-    `;
-
-    return content;
+        </ul>`;
 }
 export { initializeDrawCircles, removeCircles, getTimeHTML };
