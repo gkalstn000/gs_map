@@ -206,11 +206,7 @@ function removeCircles() {
     circles = [];
 }
 
-// 마우스 우클릭 하여 원 그리기가 종료됐을 때 호출하여
-// 그려진 원의 반경 정보와 반경에 대한 도보, 자전거 시간을 계산하여
-// HTML Content를 만들어 리턴하는 함수입니다
 function getTimeHTML(distance) {
-
     // 도보의 시속은 평균 4km/h 이고 도보의 분속은 67m/min입니다
     var walkkTime = distance / 67 | 0;
     var walkHour = '', walkMin = '';
@@ -232,19 +228,23 @@ function getTimeHTML(distance) {
     bycicleMin = '<span class="number">' + bycicleTime % 60 + '</span>분';
 
     // 거리와 도보 시간, 자전거 시간을 가지고 HTML Content를 만들어 리턴합니다
-    var content = '<ul class="info">';
-    content += '    <li>';
-    content += '        <span class="label">총거리</span><span class="number">' + distance + '</span>m';
-    content += '    </li>';
-    content += '    <li>';
-    content += '        <span class="label">도보</span>' + walkHour + walkMin;
-    content += '    </li>';
-    content += '    <li>';
-    content += '        <span class="label">자전거</span>' + bycicleHour + bycicleMin;
-    content += '    </li>';
-    content += '</ul>';
+    var content = `
+        <ul class="info" style="background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+            <li>
+                <span class="label">반경</span>
+                <span class="number">${distance}</span>m
+            </li>
+<!--            <li>-->
+<!--                <span class="label">도보</span>-->
+<!--                ${walkHour}${walkMin}-->
+<!--            </li>-->
+<!--            <li>-->
+<!--                <span class="label">자전거</span>-->
+<!--                ${bycicleHour}${bycicleMin}-->
+<!--            </li>-->
+        </ul>
+    `;
 
     return content;
 }
-
 export { initializeDrawCircles, removeCircles, getTimeHTML };

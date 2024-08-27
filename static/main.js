@@ -1,6 +1,6 @@
 import { initializeMapMarkers } from './mapMarkers.js';
 import { initializeDrawLines } from './drawLines.js';
-import { initializeDrawCircles } from './drawCircles.js'
+import { initializeDrawCircles, removeCircles } from './drawCircles.js'
 
 document.addEventListener("DOMContentLoaded", function() {
     var mapContainer = document.getElementById('map');
@@ -11,7 +11,9 @@ document.addEventListener("DOMContentLoaded", function() {
     var map = new kakao.maps.Map(mapContainer, mapOption);
 
     initializeMapMarkers(map, positions);
-    // initializeDrawLines(map);
+    initializeDrawLines(map);
     initializeDrawCircles(map);
 
+    // removeCircles 함수를 window 객체에 추가하여 HTML에서 접근 가능하게 설정
+    window.removeCircles = removeCircles;
 });

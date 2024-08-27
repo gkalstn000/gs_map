@@ -165,11 +165,12 @@ function getTimeHTML(distance) {
     }
     bicycleMin = '<span class="number">' + bicycleTime % 60 + '</span>분';
 
-    return `<ul class="dotOverlay distanceInfo">
-                <li><span class="label">총거리</span><span class="number">${distance}</span>m</li>
-                <li><span class="label">도보</span>${walkHour}${walkMin}</li>
-                <li><span class="label">자전거</span>${bicycleHour}${bicycleMin}</li>
+    return `<ul class="dotOverlay distanceInfo" style="background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 5px; border: 1px solid #ccc; box-shadow: 0px 0px 5px rgba(0,0,0,0.3);">
+                <li><span class="label">총거리 </span><span class="number">${distance}</span>m</li>
+                <li><span class="label">도보 </span>${walkHour}${walkMin}</li>
+                <li><span class="label">자전거 </span>${bicycleHour}${bicycleMin}</li>
             </ul>`;
 }
+
 
 export { initializeDrawLines, deleteClickLine, deleteDistance, deleteCircleDot };
